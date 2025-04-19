@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkMode"
+    android:background="@color/blue"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -228,7 +228,7 @@
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/spaceship"/>
+                app:srcCompat="@drawable/penguin"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_5_2"

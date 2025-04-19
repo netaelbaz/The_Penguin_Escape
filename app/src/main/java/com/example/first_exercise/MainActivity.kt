@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatImageView
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.delay
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var gameManager: GameManager
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         findViews()
         gameManager = GameManager(main_IMG_hearts.size)
@@ -90,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
                 cell.setImageResource(
                     when {
-                        isObstacle -> R.drawable.meteorite
+                        isObstacle -> R.drawable.obstacle
                         else -> android.R.color.transparent
                     }
                 )
@@ -108,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         {
             val cell = main_IMG_cells[main_IMG_cells.lastIndex][lane]
             if (lane == gameManager.carLane) {
-                cell.setImageResource(R.drawable.spaceship)
+                cell.setImageResource(R.drawable.penguin)
             }
             else {
                 cell.setImageResource(0)
