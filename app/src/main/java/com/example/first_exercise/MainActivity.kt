@@ -1,6 +1,7 @@
 package com.example.first_exercise
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,20 +12,20 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
+import com.example.first_exercise.logic.GameManager
+import com.example.first_exercise.utilities.Constants
 
 class MainActivity : AppCompatActivity() {
 
-    private val ROWS = 6
-    private val COLS = 3
-    private var carLane = 1
-    private var lives = 3
+    private lateinit var main_IMG_cells: List<List<AppCompatImageView>>
 
-    private lateinit var cellViews: List<List<AppCompatImageView>>
-    private lateinit var heartViews: List<AppCompatImageView>
+    private lateinit var main_IMG_hearts: List<AppCompatImageView>
+
     private lateinit var main_BTN_left: MaterialButton
+
     private lateinit var main_BTN_right: MaterialButton
 
-    private var grid = Array(ROWS) { IntArray(COLS) { 0 } }
+    private lateinit var gameManager: GameManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,28 +38,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViews()
+        gameManager = GameManager(main_IMG_hearts.size)
         setupButtons()
-
-        lifecycleScope.launch {
-            while (true) {
-                delay(1500L)
-                updateGame()
-            }
-        }
-
+        startSchedueler()
     }
 
 
-    // Set up the GridLayout and ImageViews
     private fun findViews() {
-        cellViews = List(ROWS) { row ->
-            List(COLS) { col ->
+        main_IMG_cells = List(Constants.GameDetails.ROWS) { row ->
+            List(Constants.GameDetails.COLS) { col ->
                 val id = resources.getIdentifier("cell_${row}_${col}", "id", packageName)
                 findViewById(id)
             }
         }
 
-        heartViews = listOf(
+        main_IMG_hearts = listOf(
             findViewById(R.id.main_IMG_heart0),
             findViewById(R.id.main_IMG_heart1),
             findViewById(R.id.main_IMG_heart2)
@@ -68,56 +62,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        main_BTN_left.setOnClickListener {
-            if (carLane > 0) carLane--
-            updateUI()
-        }
-
-        main_BTN_right.setOnClickListener {
-            if (carLane < COLS - 1) carLane++
-            updateUI()
-        }
+        main_BTN_left.setOnClickListener {view: View -> moveLeft()}
+        main_BTN_right.setOnClickListener {view: View -> moveRight()}
     }
 
-
-    private fun updateGame() {
-        // Move grid down
-        for (i in ROWS - 1 downTo 1) {
-            grid[i] = grid[i - 1].copyOf()
-        }
-        // Generate random obstacle on top row
-        val generatePercent = (0 until 100).random()
-        val isGenerateNew = if (generatePercent < 65) true else false
-        if (isGenerateNew) {
-            val obstacleLane = (0 until COLS).random()
-            grid[0] = IntArray(COLS) { if (it == obstacleLane) 1 else 0 }
-        }
-        else {
-            grid[0] = IntArray(COLS) {0}
-        }
-
-        // Collision check
-        if (grid[ROWS - 1][carLane] == 1) {
-            lives--
-            if (lives <= 0) {
-                lives = 3
-                grid = Array(ROWS) { IntArray(COLS) { 0 } }
-            }
-        }
-
-        updateUI()
+    private fun moveLeft() {
+        gameManager.moveLeft()
+        updateCarUI()
     }
+
+    private fun moveRight() {
+        gameManager.moveRight()
+        updateCarUI()
+    }
+
 
     private fun updateUI() {
-        for (i in 0 until ROWS) {
-            for (j in 0 until COLS) {
-                val cell = cellViews[i][j]
-                val isCar = (i == ROWS - 1 && j == carLane)
-                val isObstacle = grid[i][j] == 1
+        if (gameManager.isGameOver) {
+            Log.d("Game Status", "Game over, starting new one")
+            gameManager.startNewGame()
+            fillHearts()
+        }
+        for (i in 0 until Constants.GameDetails.ROWS -1) {
+            for (j in 0 until Constants.GameDetails.COLS) {
+                val cell = main_IMG_cells[i][j]
+                val isObstacle = gameManager.objectsMatrix[i][j] == 1
 
                 cell.setImageResource(
                     when {
-                        isCar -> R.drawable.spaceship
                         isObstacle -> R.drawable.meteorite
                         else -> android.R.color.transparent
                     }
@@ -125,8 +97,39 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        for (i in heartViews.indices) {
-            heartViews[i].visibility = if (i < lives) View.VISIBLE else View.INVISIBLE
+        if (gameManager.crashes != 0){
+            main_IMG_hearts[main_IMG_hearts.size - gameManager.crashes]
+                .visibility = View.INVISIBLE
+        }
+    }
+
+    private fun updateCarUI() {
+        for (lane in 0 until Constants.GameDetails.COLS)
+        {
+            val cell = main_IMG_cells[main_IMG_cells.lastIndex][lane]
+            if (lane == gameManager.carLane) {
+                cell.setImageResource(R.drawable.spaceship)
+            }
+            else {
+                cell.setImageResource(0)
+            }
+        }
+    }
+
+    private fun fillHearts() {
+        for (i in main_IMG_hearts.indices) {
+            main_IMG_hearts[i].visibility = View.VISIBLE
+        }
+    }
+
+    private fun startSchedueler() {
+        lifecycleScope.launch {
+            while (true) {
+                delay(Constants.scheduler.DELAY)
+                gameManager.updateMatrix()
+                updateUI()
+                Log.d("Schedueler", "ran schedueler to update game")
+            }
         }
     }
 }
