@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
                 cell.setImageResource(
                     when {
-                        isObstacle -> R.drawable.obstacle
+                        isObstacle -> R.drawable.snowball4
                         else -> android.R.color.transparent
                     }
                 )

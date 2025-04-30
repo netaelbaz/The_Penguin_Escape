@@ -1,5 +1,6 @@
 package com.example.first_exercise.logic
 
+import com.example.first_exercise.SignalManager
 import com.example.first_exercise.utilities.Constants
 import kotlin.collections.copyOf
 
@@ -21,7 +22,7 @@ class GameManager(private val lives: Int = 3) {
         }
 
         val generatePercent = (0 until 100).random()
-        val isGenerateNew = if (generatePercent < 65) true else false
+        val isGenerateNew = if (generatePercent < 70) true else false
         if (isGenerateNew) {
             val obstacleLane = (0 until Constants.GameDetails.COLS).random()
             objectsMatrix[0] = IntArray(Constants.GameDetails.COLS) { if (it == obstacleLane) 1 else 0 }
@@ -31,6 +32,12 @@ class GameManager(private val lives: Int = 3) {
 
         if (objectsMatrix[Constants.GameDetails.ROWS - 1][carLane] == 1) {
             crashes++
+            SignalManager
+                .getInstance()
+                .toast("Crashed")
+            SignalManager
+                .getInstance()
+                .vibrate()
         }
     }
 

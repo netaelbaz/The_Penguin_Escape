@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@drawable/morebackground"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -250,7 +250,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="@dimen/default_margin"
-        android:backgroundTint="@color/transparent"
+        android:backgroundTint="@color/white"
         app:iconTint="@color/red"
         android:stateListAnimator="@null"
         app:iconSize="60dp"/>
@@ -265,7 +265,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/default_margin"
-        android:backgroundTint="@color/transparent"
+        android:backgroundTint="@color/white"
         app:iconTint="@color/red"
         android:stateListAnimator="@null"
         app:iconSize="60dp"/>
