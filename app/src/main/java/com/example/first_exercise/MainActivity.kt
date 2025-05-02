@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatImageView
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.delay
@@ -38,7 +37,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         findViews()
         gameManager = GameManager(main_IMG_hearts.size)
@@ -91,9 +89,10 @@ class MainActivity : AppCompatActivity() {
                 val cell = main_IMG_cells[i][j]
                 val isObstacle = gameManager.objectsMatrix[i][j] == 1
 
+
                 cell.setImageResource(
                     when {
-                        isObstacle -> R.drawable.snowball4
+                        isObstacle -> R.drawable.glacier
                         else -> android.R.color.transparent
                     }
                 )

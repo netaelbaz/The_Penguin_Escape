@@ -22,7 +22,7 @@ class GameManager(private val lives: Int = 3) {
         }
 
         val generatePercent = (0 until 100).random()
-        val isGenerateNew = if (generatePercent < 70) true else false
+        val isGenerateNew = (generatePercent < 85)
         if (isGenerateNew) {
             val obstacleLane = (0 until Constants.GameDetails.COLS).random()
             objectsMatrix[0] = IntArray(Constants.GameDetails.COLS) { if (it == obstacleLane) 1 else 0 }

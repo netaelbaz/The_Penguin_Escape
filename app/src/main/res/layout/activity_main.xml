@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/morebackground"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -40,7 +40,7 @@
     <!-- Game Grid -->
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/gameGrid"
+        android:id="@+id/main_layout_gameGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/main_FAB_Left"
@@ -48,7 +48,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -58,185 +60,185 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_0_0"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_0_1"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_0_2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/cell_width"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_1_0"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_1_1"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_1_2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
 
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/cell_width"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_2_0"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_2_1"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_2_2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/cell_width"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_3_0"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:layout_weight="2"
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_3_1"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:layout_weight="2"
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_3_2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:layout_weight="2"
+                android:scaleType="centerCrop" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/cell_width"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_4_0"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_4_1"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_4_2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/cell_width"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_5_0"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_5_1"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/penguin"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cell_5_2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/cell_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -250,10 +252,10 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="@dimen/default_margin"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/transparent"
         app:iconTint="@color/red"
         android:stateListAnimator="@null"
-        app:iconSize="60dp"/>
+        app:iconSize="@dimen/icon_size"/>
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -265,10 +267,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/default_margin"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/transparent"
         app:iconTint="@color/red"
         android:stateListAnimator="@null"
-        app:iconSize="60dp"/>
+        app:iconSize="@dimen/icon_size"/>
 
 </RelativeLayout>
 
