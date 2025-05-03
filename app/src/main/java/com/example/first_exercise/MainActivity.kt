@@ -84,18 +84,20 @@ class MainActivity : AppCompatActivity() {
             gameManager.startNewGame()
             fillHearts()
         }
-        for (i in 0 until Constants.GameDetails.ROWS -1) {
+        for (i in 0 until Constants.GameDetails.ROWS) {
             for (j in 0 until Constants.GameDetails.COLS) {
-                val cell = main_IMG_cells[i][j]
-                val isObstacle = gameManager.objectsMatrix[i][j] == 1
+                if (i != Constants.GameDetails.ROWS - 1 || j != gameManager.carLane){
+                    val cell = main_IMG_cells[i][j]
+                    val isObstacle = gameManager.objectsMatrix[i][j] == 1
 
 
-                cell.setImageResource(
-                    when {
-                        isObstacle -> R.drawable.glacier
-                        else -> android.R.color.transparent
-                    }
-                )
+                    cell.setImageResource(
+                        when {
+                            isObstacle -> R.drawable.glacier
+                            else -> android.R.color.transparent
+                        }
+                    )
+                }
             }
         }
 
