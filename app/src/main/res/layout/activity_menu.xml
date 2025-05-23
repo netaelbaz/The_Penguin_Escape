@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuActivity"
+    android:background="@drawable/back">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="#E0F7FA">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/menu_LAYOUT_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+
+            <!--        <com.google.android.material.button.MaterialButtonToggleGroup-->
+            <!--            android:id="@+id/toggleButton1"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            app:singleSelection="true">-->
+
+            <!--            <Button-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Buttons"/>-->
+            <!--            <Button-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Sensors"/>-->
+            <!--        </com.google.android.material.button.MaterialButtonToggleGroup>-->
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/menu_SWITCH_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buttons"
+                android:checked="true"
+                app:thumbTint="#4DD0E1"
+                android:layout_gravity="center"
+                />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/menu_SWITCH_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fast"
+                android:checked="true"
+                app:thumbTint="#4DD0E1"
+                android:layout_gravity="center"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_BTN_highScores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scores"
+                android:backgroundTint="#4DD0E1"
+                android:layout_gravity="center"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu_BTN_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="130dp"
+                android:height="50dp"
+                android:text="Play"
+                android:backgroundTint="#4DD0E1"
+                android:layout_gravity="center"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+</RelativeLayout>
