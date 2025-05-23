@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import com.example.first_exercise.R
+import com.example.first_exercise.interfaces.HighScoreClickedCallback
 import com.example.first_exercise.logic.RecordsManager
 import com.google.android.material.textview.MaterialTextView
 
 class RecordsFragment : Fragment() {
 
     private lateinit var scoreRows: List<TableRow>
+
     private lateinit var scoreText: List<MaterialTextView>
+
     private var recordsManager = RecordsManager()
+
+    var highScoreItemClicked: HighScoreClickedCallback? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +73,11 @@ class RecordsFragment : Fragment() {
             }
             else {
                 row.visibility = View.INVISIBLE
+            }
+            row.setOnClickListener { view:View ->
+                val lat: Double = topScores[i].lat
+                val lon: Double = topScores[i].lon
+                highScoreItemClicked?.highScoreItemClicked(lat, lon)
             }
         }
 

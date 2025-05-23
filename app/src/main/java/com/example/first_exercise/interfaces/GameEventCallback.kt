@@ -1,6 +1,6 @@
 package com.example.first_exercise.interfaces
 
-interface GameEventListenerCallback {
+interface GameEventCallback {
     fun onCrash()
     fun onCoinCollecting()
 }

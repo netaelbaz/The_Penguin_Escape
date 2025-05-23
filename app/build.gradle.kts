@@ -49,6 +49,7 @@ dependencies {
 
     // GSON:
     implementation (libs.gson)
-
+    // location:
     implementation(libs.location)
+    implementation(libs.google.maps)
 }

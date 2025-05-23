@@ -20,7 +20,7 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.lifecycle.lifecycleScope
-import com.example.first_exercise.interfaces.GameEventListenerCallback
+import com.example.first_exercise.interfaces.GameEventCallback
 import com.example.first_exercise.interfaces.TiltCallback
 import com.example.first_exercise.logic.GameManager
 import com.example.first_exercise.utilities.Constants
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         soundPlayer = SingleSoundPlayer(this)
         gameManager = GameManager(main_IMG_hearts.size)
-        gameManager.gameEventListener = object: GameEventListenerCallback {
+        gameManager.gameEventListener = object: GameEventCallback {
             override fun onCrash() {
                 // move toast here
                 soundPlayer.playSound(R.raw.crashsound)

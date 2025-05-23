@@ -1,7 +1,7 @@
 package com.example.first_exercise.logic
 
 import com.example.first_exercise.SignalManager
-import com.example.first_exercise.interfaces.GameEventListenerCallback
+import com.example.first_exercise.interfaces.GameEventCallback
 import com.example.first_exercise.utilities.Constants
 import kotlin.collections.copyOf
 
@@ -26,7 +26,7 @@ class GameManager(private val lives: Int = 3) {
 
     val recordsManager: RecordsManager = RecordsManager(10)
 
-    var gameEventListener: GameEventListenerCallback? = null
+    var gameEventListener: GameEventCallback? = null
 
     fun updateMatrix() {
         for (i in Constants.GameDetails.ROWS - 1 downTo 1) {

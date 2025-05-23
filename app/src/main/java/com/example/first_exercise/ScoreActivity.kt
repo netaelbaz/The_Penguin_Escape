@@ -8,12 +8,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.first_exercise.interfaces.HighScoreClickedCallback
 import com.example.first_exercise.ui.RecordsFragment
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
-class ScoreActivity : AppCompatActivity() {
+class ScoreActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var scores_FRAME_highscores: FrameLayout
     private lateinit var highScoresFragment: RecordsFragment
+    private lateinit var googleMap: GoogleMap
+    private lateinit var mapFragment: SupportMapFragment
     private lateinit var toolBar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +43,8 @@ class ScoreActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        mapFragment = supportFragmentManager.findFragmentById(R.id.scores_fragment_map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 //        mapFragment = MapFragment()
 //        supportFragmentManager
 //            .beginTransaction()
@@ -42,15 +53,25 @@ class ScoreActivity : AppCompatActivity() {
         toolBar.setNavigationOnClickListener { view: View -> finish() }
 
         highScoresFragment = RecordsFragment()
-//        highScoresFragment.highScoreItemClicked =
-//            object : Callback_HighScoreClicked {
-//                override fun highScoreItemClicked(lat: Double, lon: Double) {
-//                    mapFragment.zoom(lat, lon)
-//                }
-//            }
+        highScoresFragment.highScoreItemClicked =
+            object : HighScoreClickedCallback {
+                override fun highScoreItemClicked(lat: Double, lon: Double) {
+                    zoomInMap(lat, lon)
+                }
+            }
         supportFragmentManager
             .beginTransaction()
             .add(R.id.scores_FRAME_highscores, highScoresFragment)
             .commit()
     }
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+    }
+
+    private fun zoomInMap(lat: Double, lon: Double) {
+        val location = LatLng(lat, lon)
+        googleMap.addMarker(MarkerOptions().position(location))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+    }
+
 }
