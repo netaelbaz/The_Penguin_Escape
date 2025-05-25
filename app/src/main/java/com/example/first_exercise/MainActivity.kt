@@ -4,9 +4,9 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -31,6 +31,10 @@ import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.Job
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,6 +65,8 @@ class MainActivity : AppCompatActivity() {
     private var tiltDetector: TiltDetector? = null
 
     private lateinit var soundPlayer: SingleSoundPlayer
+
+    private var isGameOverDialogShown = false
 
 
     private val requestLocationPermissionLauncher = registerForActivityResult(
@@ -136,14 +142,6 @@ class MainActivity : AppCompatActivity() {
         isButtonsModeOn = bundle?.getBoolean(Constants.BundleKeys.BUTTONS_MODE,true) ?: true
         isFastModeOn = bundle?.getBoolean(Constants.BundleKeys.FAST_MODE,true) ?: true
 
-//        main_LBL_score.text = buildString{
-//            append("Score: ")
-//            append(gameManager.getCurrentScore())
-//        }
-//        main_LBL_distance.text = buildString{
-//            append("Distance: ")
-////            append(gameManager.getTopScore())
-//        }
         main_BTN_back.setOnClickListener {
             timerJob.cancel()
             finish()
@@ -177,6 +175,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkLocationPermission() {
+        // remove this func
         SharedPreferencesManager.getInstance().putBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)
         if (SharedPreferencesManager.getInstance().getBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)) {
             Log.d("LocationPermission", "Permission already granted.")
@@ -197,38 +196,77 @@ class MainActivity : AppCompatActivity() {
         updateCarUI()
     }
 
+//    @SuppressLint("MissingPermission")
+//    private fun saveLocationOnGameOver() {
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // Permission not granted, request it or handle gracefully
+////            requestLocationPermission() // your own function to ask for permission
+//            Log.d("location", "no premission")
+//            return
+//        }
+//        fusedLocationClient.getCurrentLocation(com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY,
+//            null)
+//            .addOnSuccessListener { location: Location? ->
+//                if (location != null) {
+//                    val latitude = location.latitude
+//                    val longitude = location.longitude
+//                    Log.d("location", "my location is ${latitude}, ${longitude}")
+//                    gameManager.gameOver(latitude, longitude)
+//                }
+//                else {
+//                    Log.d("location", "is null")
+//                }
+//            }
+//            .addOnFailureListener {
+//                Log.d("location", "failed")
+//            }
+//    }
+
     @SuppressLint("MissingPermission")
-    private fun saveLocationOnGameOver() {
+    private suspend fun saveLocationOnGameOver(): Boolean {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Permission not granted, request it or handle gracefully
-//            requestLocationPermission() // your own function to ask for permission
-            Log.d("location", "no premission")
-            return
+            Log.d("location", "no permission")
+            return false
         }
-        fusedLocationClient.getCurrentLocation(com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY,
-            null)
-            .addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    val latitude = location.latitude
-                    val longitude = location.longitude
-                    Log.d("location", "my location is ${latitude}, ${longitude}")
-                    gameManager.gameOver(latitude, longitude)
-                }
-                else {
-                    Log.d("location", "is null")
-                }
+
+        return try {
+            val location = fusedLocationClient
+                .getCurrentLocation(com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY, null)
+                .await()
+
+            if (location != null) {
+                val latitude = location.latitude
+                val longitude = location.longitude
+                Log.d("location", "my location is $latitude, $longitude")
+                gameManager.gameOver(latitude, longitude) // Assuming this updates score internally
+                true
+            } else {
+                Log.d("location", "location is null")
+                false
             }
-            .addOnFailureListener {
-                Log.d("location", "failed")
-            }
+        } catch (e: Exception) {
+            Log.d("location", "failed with exception: ${e.message}")
+            false
+        }
     }
+
 
 
     private fun updateUI() {
         if (gameManager.isGameOver) {
-            Log.d("Game Status", "Game over")
-            saveLocationOnGameOver()
-            changeActivity()
+            timerJob.cancel()
+            if (!isGameOverDialogShown) {
+                isGameOverDialogShown = true
+                Log.d("Game Status", "Game over")
+                CoroutineScope(Dispatchers.Main).launch {
+                    val success = saveLocationOnGameOver()
+                    if (success) {
+                        showGameOverDialog()
+                    }
+                    isGameOverDialogShown = true
+                }
+            }
+//            changeActivity()
 //            gameManager.startNewGame()
 //            fillHearts()
         }
@@ -305,8 +343,8 @@ class MainActivity : AppCompatActivity() {
         bundle.putInt(Constants.BundleKeys.SCORE_KEY, gameManager.getCurrentScore())
         intent.putExtras(bundle)
         startActivity(intent)
-        finish()
         timerJob.cancel()
+        finish()
     }
 
     private fun initTiltDetector() {
@@ -320,8 +358,42 @@ class MainActivity : AppCompatActivity() {
                 override fun tiltRight() {
                     moveRight()
                 }
-
             }
         )
+    }
+
+    private fun showGameOverDialog() {
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.game_over_dialog, null)
+        val messageScore: MaterialTextView = dialogView.findViewById(R.id.gameOver_LBL_score)
+        val scoresButton: MaterialButton = dialogView.findViewById(R.id.gameOver_BTN_nextPage)
+        messageScore.text = buildString {
+            append("Score")
+            append(gameManager.score)
+        }
+//        MaterialAlertDialogBuilder(context)
+//            .setTitle("Game Over")
+//            .setView(dialogView)
+//            .setPositiveButton("Next") {
+//                dialog, _ ->
+//                val intent = Intent(this, ScoreActivity::class.java)
+//                context.startActivity(intent)
+//
+//                (context as Activity).finish()
+//            }
+//            .show()
+
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        scoresButton.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(this, ScoreActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        dialog.show()
     }
 }

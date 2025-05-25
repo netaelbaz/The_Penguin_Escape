@@ -6,7 +6,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import com.example.first_exercise.interfaces.TiltCallback
-import kotlin.math.abs
 
 class TiltDetector(context: Context, private var tiltCallback: TiltCallback?) {
 

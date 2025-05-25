@@ -39,7 +39,7 @@
         <!-- ToDo: delete api key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="" />
+            android:value="AIzaSyD8PA_3Q5gC87h_dtz05UmV8p04ODd9p8U" />
     </application>
 
 </manifest>

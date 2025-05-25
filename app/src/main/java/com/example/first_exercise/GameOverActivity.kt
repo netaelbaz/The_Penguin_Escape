@@ -16,9 +16,9 @@ class GameOverActivity : AppCompatActivity() {
 
     private lateinit var gameOver_LBL_score :MaterialTextView
 
-    private lateinit var gameOver_BTN_menu: MaterialButton
+//    private lateinit var gameOver_BTN_menu: MaterialButton
     private lateinit var gameOver_BTN_scores: MaterialButton
-    private lateinit var gameOver_BTN_play: MaterialButton
+//    private lateinit var gameOver_BTN_play: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +35,9 @@ class GameOverActivity : AppCompatActivity() {
 
     private fun findViews() {
         gameOver_LBL_score = findViewById(R.id.gameOver_LBL_score)
-        gameOver_BTN_menu = findViewById(R.id.gameOver_BTN_menu)
+//        gameOver_BTN_menu = findViewById(R.id.gameOver_BTN_menu)
         gameOver_BTN_scores = findViewById(R.id.gameOver_BTN_scores)
-        gameOver_BTN_play = findViewById(R.id.gameOver_BTN_play)
+//        gameOver_BTN_play = findViewById(R.id.gameOver_BTN_play)
     }
 
     private fun initViews() {
@@ -49,9 +49,9 @@ class GameOverActivity : AppCompatActivity() {
             append("Score: ")
             append(score)
         }
-        gameOver_BTN_menu.setOnClickListener { view: View -> changeActivity("menu") }
+//        gameOver_BTN_menu.setOnClickListener { view: View -> changeActivity("menu") }
         gameOver_BTN_scores.setOnClickListener { view: View -> changeActivity("scores") }
-        gameOver_BTN_play.setOnClickListener { view: View -> changeActivity("play") }
+//        gameOver_BTN_play.setOnClickListener { view: View -> changeActivity("play") }
     }
 
     private fun changeActivity(destActivity: String) {

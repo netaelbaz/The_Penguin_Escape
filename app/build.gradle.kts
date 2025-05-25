@@ -52,4 +52,7 @@ dependencies {
     // location:
     implementation(libs.location)
     implementation(libs.google.maps)
+
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.play.services)
 }
