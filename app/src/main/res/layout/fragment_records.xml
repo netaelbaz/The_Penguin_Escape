@@ -20,18 +20,21 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TableRow
-            android:background="#45b39d">
+            android:background="@color/orange">
             <com.google.android.material.textview.MaterialTextView
-                android:text="Rank"
-                android:padding="8dp"
+                android:text="@string/RankTitle"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView
-                android:text="Points" android:padding="8dp"
+                android:text="@string/PointsTitle"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -45,9 +48,10 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="01"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
@@ -63,14 +67,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="02"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score2"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>
@@ -81,14 +86,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="03"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score3" 
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>
@@ -99,14 +105,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="04"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score4" 
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>
@@ -117,14 +124,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="05"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score5" 
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>
@@ -135,14 +143,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="06"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score6"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>
@@ -153,14 +162,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="07"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score7"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>
@@ -171,14 +181,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="08"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score8"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>
@@ -189,14 +200,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="09"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score9"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>
@@ -207,14 +219,15 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="10"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
+
             <com.google.android.material.textview.MaterialTextView 
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/records_LBL_score10"
-                android:padding="8dp"
+                android:padding="@dimen/default_padding"
                 android:textStyle="bold"
                 android:textSize="@dimen/textSize"/>
         </TableRow>

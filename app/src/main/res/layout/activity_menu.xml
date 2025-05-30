@@ -5,81 +5,95 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MenuActivity"
-    android:background="@drawable/back">
+    >
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="penguin\n escape"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="42sp"
+        android:layout_margin="@dimen/default_margin"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@dimen/default_margin"
+        android:id="@+id/menu_LBL_title"
+        android:layout_above="@id/menu_LAYOUT_buttons"
+        />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="250dp"
-        android:layout_height="400dp"
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/menu_LAYOUT_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:layout_centerInParent="true"
-        app:cardElevation="12dp"
-        app:cardBackgroundColor="#E0F7FA">
+        android:padding="@dimen/default_margin">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/menu_LAYOUT_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:orientation="vertical"
             android:layout_gravity="center"
-            >
+            android:layout_margin="@dimen/default_margin"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-            <!--        <com.google.android.material.button.MaterialButtonToggleGroup-->
-            <!--            android:id="@+id/toggleButton1"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            app:singleSelection="true">-->
-
-            <!--            <Button-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="Buttons"/>-->
-            <!--            <Button-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="Sensors"/>-->
-            <!--        </com.google.android.material.button.MaterialButtonToggleGroup>-->
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/menu_SWITCH_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Buttons"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/orange"
                 android:checked="true"
-                app:thumbTint="#4DD0E1"
-                android:layout_gravity="center"
-                />
+                android:text="BUTTONS"
+                android:textColor="@color/white"
+                android:textSize="@dimen/switchTextSize"
+                android:textStyle="bold"
+                app:trackTint="@color/orange" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/menu_SWITCH_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fast"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/orange"
                 android:checked="true"
-                app:thumbTint="#4DD0E1"
-                android:layout_gravity="center"
-                />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_BTN_highScores"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scores"
-                android:backgroundTint="#4DD0E1"
-                android:layout_gravity="center"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/menu_BTN_play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="130dp"
-                android:height="50dp"
-                android:text="Play"
-                android:backgroundTint="#4DD0E1"
-                android:layout_gravity="center"
-                />
+                android:text="FAST"
+                android:textColor="@color/white"
+                android:textSize="@dimen/switchTextSize"
+                android:textStyle="bold"
+                app:trackTint="@color/orange" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/menu_BTN_highScores"
+            android:layout_width="@dimen/buttonWidth"
+            android:layout_height="@dimen/buttonHeight"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/default_margin"
+            android:backgroundTint="@color/orange"
+            android:text="SCORES"
+            android:textSize="@dimen/buttonTextSize"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/menu_BTN_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/default_margin"
+            android:width="@dimen/buttonWidth"
+            android:height="@dimen/buttonHeight"
+            android:backgroundTint="@color/orange"
+            android:text="PLAY"
+            android:textSize="@dimen/buttonTextSize"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <!--    </com.google.android.material.card.MaterialCardView>-->
 
 
 

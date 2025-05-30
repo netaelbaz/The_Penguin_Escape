@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="24dp"
     android:gravity="center"
@@ -12,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Game Over!"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center"/>
@@ -23,14 +24,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="Score:"
-            android:textColor="#333333"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/gameOver_BTN_nextPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scores->" />
+        android:backgroundTint="@color/orange"
+        android:text="Scores ->" />
 
 
 

@@ -21,9 +21,6 @@
             android:name=".ScoreActivity"
             android:exported="false" />
         <activity
-            android:name=".GameOverActivity"
-            android:exported="false" />
-        <activity
             android:name=".MenuActivity"
             android:exported="true">
             <intent-filter>

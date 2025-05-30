@@ -1,6 +1,5 @@
 package com.example.first_exercise.logic
 
-import com.example.first_exercise.SignalManager
 import com.example.first_exercise.interfaces.GameEventCallback
 import com.example.first_exercise.utilities.Constants
 import kotlin.collections.copyOf
@@ -34,33 +33,27 @@ class GameManager(private val lives: Int = 3) {
         }
 
         distance ++ // in each loop iteration i want to increase the distance
-        score += Constants.Score.distanceWorth // for each distance passed increase score
+        score += Constants.Score.DISTANCE_WORTH // for each distance passed increase score
 
         val generatePercent = (0 until 100).random()
         val isGenerateNew = (generatePercent < 85)
         if (isGenerateNew) {
             val targetLane = (0 until Constants.GameDetails.COLS).random()
             val generateCoin = (0 until 100).random() < 15
-            val value = if (generateCoin) Constants.objectValues.coinValue else Constants.objectValues.obstacleValue
+            val value = if (generateCoin) Constants.ObjectValues.COIN_VALUE else Constants.ObjectValues.OBSTACLE_VALUE
             objectsMatrix[0] = IntArray(Constants.GameDetails.COLS) { if (it == targetLane) value else 0 }
         } else {
             objectsMatrix[0] = IntArray(Constants.GameDetails.COLS) { 0 }
         }
 
-        if (objectsMatrix[Constants.GameDetails.ROWS - 1][carLane] == Constants.objectValues.obstacleValue) {
+        if (objectsMatrix[Constants.GameDetails.ROWS - 1][carLane] == Constants.ObjectValues.OBSTACLE_VALUE) {
             // crashed happened
             crashes++
-            SignalManager
-                .getInstance()
-                .toast("Crashed")
-            SignalManager
-                .getInstance()
-                .vibrate()
+
             gameEventListener?.onCrash()
         }
-        else if (objectsMatrix[Constants.GameDetails.ROWS - 1][carLane] == Constants.objectValues.coinValue) {
-            score += Constants.Score.coinsWorth
-//            scoreManager.updateScore(Constants.Score.coinsWorth)
+        else if (objectsMatrix[Constants.GameDetails.ROWS - 1][carLane] == Constants.ObjectValues.COIN_VALUE) {
+            score += Constants.Score.COINS_WORTH
             gameEventListener?.onCoinCollecting()
         }
     }
@@ -68,13 +61,6 @@ class GameManager(private val lives: Int = 3) {
     fun gameOver(lat: Double, lon: Double) {
         recordsManager.saveScore(score, lat, lon)
     }
-
-
-//    fun startNewGame() {
-//        crashes = 0
-//        objectsMatrix = Array(Constants.GameDetails.ROWS) { IntArray(Constants.GameDetails.COLS) { 0 } }
-//        scoreManager.resetScore()
-//    }
 
     fun moveRight() {
         if (carLane < Constants.GameDetails.COLS - 1) carLane++
@@ -87,8 +73,4 @@ class GameManager(private val lives: Int = 3) {
     fun getCurrentScore(): Int {
         return score
     }
-
-//    fun getTopScore(): Int {
-////        return scoreManager.getBestScore()
-//    }
 }

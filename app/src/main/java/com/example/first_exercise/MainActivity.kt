@@ -3,7 +3,6 @@ package com.example.first_exercise
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,7 +22,6 @@ import com.example.first_exercise.interfaces.GameEventCallback
 import com.example.first_exercise.interfaces.TiltCallback
 import com.example.first_exercise.logic.GameManager
 import com.example.first_exercise.utilities.Constants
-import com.example.first_exercise.utilities.SharedPreferencesManager
 import com.example.first_exercise.utilities.SingleSoundPlayer
 import com.example.first_exercise.utilities.TiltDetector
 import com.google.android.material.textview.MaterialTextView
@@ -56,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private var isFastModeOn: Boolean = true
 
-    private lateinit var timerJob: Job
+    private var timerJob: Job? = null
 
     private lateinit var gameManager: GameManager
 
@@ -66,16 +63,17 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var soundPlayer: SingleSoundPlayer
 
-    private var isGameOverDialogShown = false
+    private var isGameOverDialogShown: Boolean = false
+
+    private var permissionGranted: Boolean = false
 
 
     private val requestLocationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission())
         { isGranted: Boolean ->
             if (isGranted) {
-                SharedPreferencesManager.getInstance().putBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, true)
-            } else {
-                SharedPreferencesManager.getInstance().putBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)
+                Log.d("Location", "permission was granted")
+                permissionGranted = true
             }
         }
 
@@ -83,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         Log.d("on start", "called")
         requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-//        checkLocationPermission()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        checkLocationPermission()
+//        checkLocationPermission()
         findViews()
         initViews()
         startSchedueler()
@@ -128,6 +125,12 @@ class MainActivity : AppCompatActivity() {
         gameManager = GameManager(main_IMG_hearts.size)
         gameManager.gameEventListener = object: GameEventCallback {
             override fun onCrash() {
+                SignalManager
+                    .getInstance()
+                    .toast("Crashed")
+                SignalManager
+                    .getInstance()
+                    .vibrate()
                 // move toast here
                 soundPlayer.playSound(R.raw.crashsound)
             }
@@ -143,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         isFastModeOn = bundle?.getBoolean(Constants.BundleKeys.FAST_MODE,true) ?: true
 
         main_BTN_back.setOnClickListener {
-            timerJob.cancel()
+            // check if in finish onPause is called and then not needed
             finish()
         }
         if (isButtonsModeOn) {
@@ -157,11 +160,15 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         tiltDetector?.start()
+        if (timerJob == null || timerJob?.isCancelled == true) {
+            startSchedueler()
+        }
     }
 
     override fun onPause() {
         super.onPause()
         tiltDetector?.stop()
+        timerJob?.cancel()
     }
 
     private fun initMovementButtons() {
@@ -174,19 +181,20 @@ class MainActivity : AppCompatActivity() {
         main_BTN_right.visibility = View.INVISIBLE
     }
 
-    private fun checkLocationPermission() {
-        // remove this func
-        SharedPreferencesManager.getInstance().putBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)
-        if (SharedPreferencesManager.getInstance().getBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)) {
-            Log.d("LocationPermission", "Permission already granted.")
-        } else {
-            Log.d("LocationPermission", "Requesting permission")
-            requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
-    }
+//    private fun checkLocationPermission() {
+//        // remove this func
+//        SharedPreferencesManager.getInstance().putBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)
+//        if (SharedPreferencesManager.getInstance().getBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)) {
+//            Log.d("LocationPermission", "Permission already granted.")
+//        } else {
+//            Log.d("LocationPermission", "Requesting permission")
+//            requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+//        }
+//    }
 
 
     private fun moveLeft() {
+//        Log.d("game direction","moving left")
         gameManager.moveLeft()
         updateCarUI()
     }
@@ -196,36 +204,11 @@ class MainActivity : AppCompatActivity() {
         updateCarUI()
     }
 
-//    @SuppressLint("MissingPermission")
-//    private fun saveLocationOnGameOver() {
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // Permission not granted, request it or handle gracefully
-////            requestLocationPermission() // your own function to ask for permission
-//            Log.d("location", "no premission")
-//            return
-//        }
-//        fusedLocationClient.getCurrentLocation(com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY,
-//            null)
-//            .addOnSuccessListener { location: Location? ->
-//                if (location != null) {
-//                    val latitude = location.latitude
-//                    val longitude = location.longitude
-//                    Log.d("location", "my location is ${latitude}, ${longitude}")
-//                    gameManager.gameOver(latitude, longitude)
-//                }
-//                else {
-//                    Log.d("location", "is null")
-//                }
-//            }
-//            .addOnFailureListener {
-//                Log.d("location", "failed")
-//            }
-//    }
 
     @SuppressLint("MissingPermission")
     private suspend fun saveLocationOnGameOver(): Boolean {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("location", "no permission")
+        if (!permissionGranted) {
+            Log.d("Location", "no permission")
             return false
         }
 
@@ -237,15 +220,15 @@ class MainActivity : AppCompatActivity() {
             if (location != null) {
                 val latitude = location.latitude
                 val longitude = location.longitude
-                Log.d("location", "my location is $latitude, $longitude")
+                Log.d("Location", "my location is $latitude, $longitude")
                 gameManager.gameOver(latitude, longitude) // Assuming this updates score internally
                 true
             } else {
-                Log.d("location", "location is null")
+                Log.d("Location", "location is null")
                 false
             }
         } catch (e: Exception) {
-            Log.d("location", "failed with exception: ${e.message}")
+            Log.d("Location", "failed with exception: ${e.message}")
             false
         }
     }
@@ -253,8 +236,42 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updateUI() {
+        // update the obstacle and coins
+        for (i in 0 until Constants.GameDetails.ROWS) {
+            for (j in 0 until Constants.GameDetails.COLS) {
+                if (i != Constants.GameDetails.ROWS - 1 || j != gameManager.carLane){
+                    val cell = main_IMG_cells[i][j]
+                    val isObstacle = gameManager.objectsMatrix[i][j] == Constants.ObjectValues.OBSTACLE_VALUE
+                    val isCoin = gameManager.objectsMatrix[i][j] == Constants.ObjectValues.COIN_VALUE
+
+                    cell.setImageResource(
+                        when {
+                            isObstacle -> R.drawable.glacier
+                            isCoin -> R.drawable.coin
+                            else -> android.R.color.transparent
+                        }
+                    )
+                }
+            }
+        }
+
+        // update header text and hearts
+        if (gameManager.crashes != 0){
+            main_IMG_hearts[main_IMG_hearts.size - gameManager.crashes]
+                .visibility = View.INVISIBLE
+        }
+        main_LBL_score.text = buildString{
+            append("Score: ")
+            append(gameManager.getCurrentScore())
+        }
+        main_LBL_distance.text = buildString{
+            append("Distance: ")
+            append(gameManager.distance)
+        }
+
+        // update only on game over
         if (gameManager.isGameOver) {
-            timerJob.cancel()
+            timerJob?.cancel()
             if (!isGameOverDialogShown) {
                 isGameOverDialogShown = true
                 Log.d("Game Status", "Game over")
@@ -265,42 +282,6 @@ class MainActivity : AppCompatActivity() {
                     }
                     isGameOverDialogShown = true
                 }
-            }
-//            changeActivity()
-//            gameManager.startNewGame()
-//            fillHearts()
-        }
-        else {
-            for (i in 0 until Constants.GameDetails.ROWS) {
-                for (j in 0 until Constants.GameDetails.COLS) {
-                    if (i != Constants.GameDetails.ROWS - 1 || j != gameManager.carLane){
-                        val cell = main_IMG_cells[i][j]
-                        val isObstacle = gameManager.objectsMatrix[i][j] == Constants.objectValues.obstacleValue
-                        val isCoin = gameManager.objectsMatrix[i][j] == Constants.objectValues.coinValue
-
-
-                        cell.setImageResource(
-                            when {
-                                isObstacle -> R.drawable.glacier
-                                isCoin -> R.drawable.coin
-                                else -> android.R.color.transparent
-                            }
-                        )
-                    }
-                }
-            }
-
-            if (gameManager.crashes != 0){
-                main_IMG_hearts[main_IMG_hearts.size - gameManager.crashes]
-                    .visibility = View.INVISIBLE
-            }
-            main_LBL_score.text = buildString{
-                append("Score: ")
-                append(gameManager.getCurrentScore())
-            }
-            main_LBL_distance.text = buildString{
-                append("Distance: ")
-                append(gameManager.distance)
             }
         }
 
@@ -319,16 +300,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun fillHearts() {
-//        for (i in main_IMG_hearts.indices) {
-//            main_IMG_hearts[i].visibility = View.VISIBLE
-//        }
-//    }
 
     private fun startSchedueler() {
         timerJob = lifecycleScope.launch {
             while (true) {
-                val delay = if (isFastModeOn) Constants.scheduler.FAST_DELAY else Constants.scheduler.SLOW_DELAY
+                val delay = if (isFastModeOn) Constants.Scheduler.FAST_DELAY else Constants.Scheduler.SLOW_DELAY
                 delay(delay)
                 gameManager.updateMatrix()
                 updateUI()
@@ -337,15 +313,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeActivity() {
-        val intent = Intent(this, GameOverActivity::class.java)
-        var bundle = Bundle()
-        bundle.putInt(Constants.BundleKeys.SCORE_KEY, gameManager.getCurrentScore())
-        intent.putExtras(bundle)
-        startActivity(intent)
-        timerJob.cancel()
-        finish()
-    }
 
     private fun initTiltDetector() {
         tiltDetector = TiltDetector(
@@ -358,6 +325,12 @@ class MainActivity : AppCompatActivity() {
                 override fun tiltRight() {
                     moveRight()
                 }
+                override fun tiltForward() {
+                    speedUp()
+                }
+                override fun tiltBackward() {
+                    speedDown()
+                }
             }
         )
     }
@@ -367,7 +340,7 @@ class MainActivity : AppCompatActivity() {
         val messageScore: MaterialTextView = dialogView.findViewById(R.id.gameOver_LBL_score)
         val scoresButton: MaterialButton = dialogView.findViewById(R.id.gameOver_BTN_nextPage)
         messageScore.text = buildString {
-            append("Score")
+            append("Score: ")
             append(gameManager.score)
         }
 //        MaterialAlertDialogBuilder(context)
@@ -396,4 +369,27 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
+    private fun restartTimer() {
+        // restart the scheduler
+        timerJob?.cancel()
+        startSchedueler()
+    }
+
+    private fun speedUp() {
+        Log.d("game speed","speeding up")
+        if (!isFastModeOn) {
+            isFastModeOn = true
+            restartTimer()
+        }
+    }
+
+    private fun speedDown() {
+        Log.d("game speed","speeding down")
+        if (isFastModeOn) {
+            isFastModeOn = false
+            restartTimer()
+        }
+    }
+
 }

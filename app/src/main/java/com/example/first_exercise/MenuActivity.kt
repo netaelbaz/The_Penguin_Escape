@@ -9,11 +9,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.first_exercise.utilities.Constants
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.android.material.materialswitch.MaterialSwitch
 
 class MenuActivity : AppCompatActivity() {
-    private lateinit var menu_SWITCH_buttons: SwitchMaterial
-    private lateinit var menu_SWITCH_speed: SwitchMaterial
+    private lateinit var menu_SWITCH_buttons: MaterialSwitch
+    private lateinit var menu_SWITCH_speed: MaterialSwitch
     private lateinit var menu_BTN_highScores: MaterialButton
     private lateinit var menu_BTN_play: MaterialButton
 

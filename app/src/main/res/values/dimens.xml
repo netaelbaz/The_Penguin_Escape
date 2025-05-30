@@ -6,4 +6,9 @@
     <dimen name="cell_width">0dp</dimen>
     <dimen name="icon_size">60dp</dimen>
     <dimen name="textSize">20sp</dimen>
+    <dimen name="buttonTextSize">28sp</dimen>
+    <dimen name="switchTextSize">20sp</dimen>
+    <dimen name="buttonWidth">180dp</dimen>
+    <dimen name="buttonHeight">60dp</dimen>
+    <dimen name="default_padding">8dp</dimen>
 </resources>

@@ -1,29 +1,27 @@
 package com.example.first_exercise.utilities
 
 class Constants {
-    object scheduler {
-        const val SLOW_DELAY: Long = 1_500L
-        const val FAST_DELAY: Long = 700L
+    object Scheduler {
+        const val SLOW_DELAY: Long = 1_000L
+        const val FAST_DELAY: Long = 500L
     }
     object GameDetails {
         const val ROWS: Int = 6
         const val COLS: Int = 5
     }
-    object objectValues {
-        const val obstacleValue: Int = 1
-        const val coinValue: Int = 2
+    object ObjectValues {
+        const val OBSTACLE_VALUE: Int = 1
+        const val COIN_VALUE: Int = 2
     }
     object Score {
-        const val distanceWorth: Int = 5
-        const val coinsWorth: Int = 15
+        const val DISTANCE_WORTH: Int = 5
+        const val COINS_WORTH: Int = 15
     }
     object BundleKeys{
         const val BUTTONS_MODE: String = "BUTTONS_MODE"
         const val FAST_MODE: String = "FAST_MODE"
-        const val SCORE_KEY: String = "SCORE_KEY"
     }
     object SharedPreferences {
         const val HIGH_SCORES_KEY: String = "HighScoreKey"
-        const val LOCATION_PERMISSION_KEY: String = "LocationPermissionKey"
     }
 }
