@@ -61,7 +61,7 @@
 
 ## 📸 Screenshot
 ![game_menu](https://github.com/user-attachments/assets/79e6dd72-b4a9-45d8-a39c-408f6dc1b305)  
-![image](https://github.com/user-attachments/assets/f68e7c66-5895-4fb3-84fd-f96fb7c99e07)
+![image](https://github.com/user-attachments/assets/f68e7c66-5895-4fb3-84fd-f96fb7c99e07)  
 ![game_1](https://github.com/user-attachments/assets/fbd64d18-aa3f-4158-88ba-db31f883bfec)
 
 
