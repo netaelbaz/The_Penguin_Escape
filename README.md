@@ -13,7 +13,7 @@
   Tilt your device:
   - Right to move right  
   - Left to move left  
-  - Tilt forward for faster speend and backward for slower.
+  - Tilt forward for faster speed and backward for slower.
 
 - 🐧 **Player-controlled Penguin**  
   Move the penguin left or right using on-screen buttons.
@@ -22,7 +22,7 @@
   Randomly generated obstacles fall down the screen.
 
 - 🏁 **Constant Game Speed**  
-  Glaciers fall at a fixed speed, simulating forward movement.
+  Glaciers fall at a fixed speed, simulating forward movement.  
   Coins fall at fixed speed, allowing you to increase score.
 
 - 🚨 **Crash Feedback**  
