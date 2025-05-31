@@ -93,10 +93,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-//        checkLocationPermission()
         findViews()
         initViews()
-        startSchedueler()
+        startScheduler()
     }
 
 
@@ -131,7 +130,6 @@ class MainActivity : AppCompatActivity() {
                 SignalManager
                     .getInstance()
                     .vibrate()
-                // move toast here
                 soundPlayer.playSound(R.raw.crashsound)
             }
 
@@ -146,7 +144,6 @@ class MainActivity : AppCompatActivity() {
         isFastModeOn = bundle?.getBoolean(Constants.BundleKeys.FAST_MODE,true) ?: true
 
         main_BTN_back.setOnClickListener {
-            // check if in finish onPause is called and then not needed
             finish()
         }
         if (isButtonsModeOn) {
@@ -161,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         tiltDetector?.start()
         if (timerJob == null || timerJob?.isCancelled == true) {
-            startSchedueler()
+            startScheduler()
         }
     }
 
@@ -181,20 +178,8 @@ class MainActivity : AppCompatActivity() {
         main_BTN_right.visibility = View.INVISIBLE
     }
 
-//    private fun checkLocationPermission() {
-//        // remove this func
-//        SharedPreferencesManager.getInstance().putBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)
-//        if (SharedPreferencesManager.getInstance().getBoolean(Constants.SharedPreferences.LOCATION_PERMISSION_KEY, false)) {
-//            Log.d("LocationPermission", "Permission already granted.")
-//        } else {
-//            Log.d("LocationPermission", "Requesting permission")
-//            requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-//        }
-//    }
-
 
     private fun moveLeft() {
-//        Log.d("game direction","moving left")
         gameManager.moveLeft()
         updateCarUI()
     }
@@ -301,14 +286,14 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun startSchedueler() {
+    private fun startScheduler() {
         timerJob = lifecycleScope.launch {
             while (true) {
                 val delay = if (isFastModeOn) Constants.Scheduler.FAST_DELAY else Constants.Scheduler.SLOW_DELAY
                 delay(delay)
                 gameManager.updateMatrix()
                 updateUI()
-                Log.d("Schedueler", "ran schedueler to update game")
+                Log.d("Scheduler", "ran scheduler to update game")
             }
         }
     }
@@ -343,17 +328,6 @@ class MainActivity : AppCompatActivity() {
             append("Score: ")
             append(gameManager.score)
         }
-//        MaterialAlertDialogBuilder(context)
-//            .setTitle("Game Over")
-//            .setView(dialogView)
-//            .setPositiveButton("Next") {
-//                dialog, _ ->
-//                val intent = Intent(this, ScoreActivity::class.java)
-//                context.startActivity(intent)
-//
-//                (context as Activity).finish()
-//            }
-//            .show()
 
         val dialog = MaterialAlertDialogBuilder(this)
             .setView(dialogView)
@@ -373,7 +347,7 @@ class MainActivity : AppCompatActivity() {
     private fun restartTimer() {
         // restart the scheduler
         timerJob?.cancel()
-        startSchedueler()
+        startScheduler()
     }
 
     private fun speedUp() {

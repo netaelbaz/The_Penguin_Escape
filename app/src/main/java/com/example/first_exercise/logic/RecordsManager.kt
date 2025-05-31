@@ -38,6 +38,7 @@ class RecordsManager(private val keepLast: Int = 10) {
             .addScore(newScore)
             .build()
             .topScores
+            .distinctBy { it.score }
             .sortedByDescending { it.score }
             .take(keepLast)
 

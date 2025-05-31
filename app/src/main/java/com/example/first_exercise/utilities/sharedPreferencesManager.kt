@@ -42,16 +42,4 @@ class SharedPreferencesManager private constructor(context: Context) {
             ) ?: defaultValue
     }
 
-    fun putBoolean(key: String, value: Boolean) {
-        with(sharedPreferences.edit()) {
-            putBoolean(key, value)
-            apply()
-        }
-    }
-
-    fun getBoolean(key: String, defaultValue: Boolean): Boolean {
-        return sharedPreferences.getBoolean(
-            key, defaultValue
-        )
-    }
 }

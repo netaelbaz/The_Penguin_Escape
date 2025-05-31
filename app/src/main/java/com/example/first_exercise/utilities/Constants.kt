@@ -2,7 +2,7 @@ package com.example.first_exercise.utilities
 
 class Constants {
     object Scheduler {
-        const val SLOW_DELAY: Long = 1_000L
+        const val SLOW_DELAY: Long = 1_200L
         const val FAST_DELAY: Long = 500L
     }
     object GameDetails {

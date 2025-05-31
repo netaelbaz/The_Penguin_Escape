@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:layoutDirection="ltr">
 
     <Toolbar
         android:id="@+id/scores_Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:navigationIcon="@drawable/baseline_arrow_back_24" />
 
 
@@ -18,6 +20,7 @@
         android:id="@+id/scores_FRAME_highscores"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/white"
         android:layout_weight="1"
         />
 

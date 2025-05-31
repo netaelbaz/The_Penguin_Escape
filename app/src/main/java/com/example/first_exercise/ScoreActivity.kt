@@ -45,11 +45,6 @@ class ScoreActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun initViews() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.scores_fragment_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-//        mapFragment = MapFragment()
-//        supportFragmentManager
-//            .beginTransaction()
-//            .add(R.id.main_FRAME_map, mapFragment)
-//            .commit()
         toolBar.setNavigationOnClickListener { view: View -> finish() }
 
         highScoresFragment = RecordsFragment()

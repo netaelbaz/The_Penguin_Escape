@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:layoutDirection="ltr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".MenuActivity"
-    >
+    tools:context=".MenuActivity">
+
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,6 +51,7 @@
                 android:checked="true"
                 android:text="BUTTONS"
                 android:textColor="@color/white"
+                app:thumbTint="@color/white"
                 android:textSize="@dimen/switchTextSize"
                 android:textStyle="bold"
                 app:trackTint="@color/orange" />
@@ -63,6 +65,7 @@
                 android:checked="true"
                 android:text="FAST"
                 android:textColor="@color/white"
+                app:thumbTint="@color/white"
                 android:textSize="@dimen/switchTextSize"
                 android:textStyle="bold"
                 app:trackTint="@color/orange" />
@@ -76,6 +79,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/default_margin"
             android:backgroundTint="@color/orange"
+            android:textColor="@color/white"
             android:text="SCORES"
             android:textSize="@dimen/buttonTextSize"
             android:textStyle="bold" />
@@ -89,14 +93,10 @@
             android:width="@dimen/buttonWidth"
             android:height="@dimen/buttonHeight"
             android:backgroundTint="@color/orange"
+            android:textColor="@color/white"
             android:text="PLAY"
             android:textSize="@dimen/buttonTextSize"
             android:textStyle="bold" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <!--    </com.google.android.material.card.MaterialCardView>-->
-
-
-
-
 
 </RelativeLayout>
