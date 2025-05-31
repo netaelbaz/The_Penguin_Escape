@@ -1,13 +1,19 @@
 # 🐧 Penguin Escape
 
-**Penguin Escape** is a simple endless Android game where a penguin dodges falling glaciers on a three-lane icy path. It's a fun, arcade-style survival game developed as part of HW1.
+**Penguin Escape** is a simple endless Android game where a penguin dodges falling glaciers on a five-lane icy path. It's a fun, arcade-style survival game developed as part of Hw2.
 
 ---
 
 ## 🧊 Features
 
-- ❄️ **Three-lane icy road**  
-  Glide the penguin between three fixed lanes.
+- ❄️ **Five-lane icy road**  
+  Glide the penguin between five fixed lanes.
+
+- 🧭 **Tilt Controls (Sensor Mode)**  
+  Tilt your device:
+  - Right to move right  
+  - Left to move left  
+  - Tilt forward for faster speed and backward for slower.
 
 - 🐧 **Player-controlled Penguin**  
   Move the penguin left or right using on-screen buttons.
@@ -16,33 +22,34 @@
   Randomly generated obstacles fall down the screen.
 
 - 🏁 **Constant Game Speed**  
-  Glaciers fall at a fixed speed, simulating forward movement.
+  Glaciers fall at a fixed speed, simulating forward movement.  
+  Coins fall at fixed speed, allowing you to increase score.
 
 - 🚨 **Crash Feedback**  
-  Crash into a glacier? Get a Toast message and device vibration.
+  Crash into a glacier? Get a Toast message, device vibration and sound.
+
+- 🪙 **Coins On the Road**  
+  Selected a coin? get 15 points more and sound is playing.
 
 - ❤️ **Lives System**  
   The penguin has 3 lives. Each hit costs one life.
 
-- 🔁 **Endless Gameplay**  
-  Play continues until all 3 lives are lost.
+- 📊 **Top 10 Score Table**  
+  Stored locally with scores, GPS coordinates, and ranks.
 
+- 🗺️ **Map Integration**  
+  Tap a score to view the map location where it was recorded.
 ---
 
 ## 🕹️ How to Play
 
-1. **Start the game** to see the penguin on the road.
-2. **Use the left (`←`) and right (`→`) buttons** to move the penguin between lanes.
-3. **Avoid falling glaciers** by switching lanes in time.
-4. **Each collision** with a glacier removes one heart (life).
-5. **Survive as long as possible** with your 3 lives — the game is endless!
-
----
-
-## 📱 Controls
-
-- **Left Button (←)** – Move penguin one lane left  
-- **Right Button (→)** – Move penguin one lane right
+1. **Click the penguin icon** to start the game.
+2. **In the menu window** choose your desired settings and PLAY
+3. **Buttons mode** if you chose buttons in menu use the left (`←`) and right (`→`) buttonsto move the penguin between lanes.
+4. **Sensor mode** if you turned of buttons in menu tilt the phone left and right to move the penguin between lanes.
+5. **Avoid falling glaciers** by switching lanes in time cause each collision removes one life.
+6. **Get points** by selecting coins on road and surviving the longest to get the highest score and break a record.
+7. **See highest scores** in the scores window when game finished.
 
 ---
 
@@ -53,9 +60,9 @@
 ---
 
 ## 📸 Screenshot
-
-![image](https://github.com/user-attachments/assets/b12ee8b2-7161-4913-b8bf-1dc19b37bc30)
-![image](https://github.com/user-attachments/assets/dd711f09-e127-4ee7-8e3e-074c09685688)
+![game_menu](https://github.com/user-attachments/assets/79e6dd72-b4a9-45d8-a39c-408f6dc1b305)  
+![game_1](https://github.com/user-attachments/assets/fbd64d18-aa3f-4158-88ba-db31f883bfec)  
+![image](https://github.com/user-attachments/assets/f68e7c66-5895-4fb3-84fd-f96fb7c99e07)
 
 
 ---
